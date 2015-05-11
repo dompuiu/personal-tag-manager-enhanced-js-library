@@ -1,18 +1,24 @@
 {
   "name": "PersonalTagManager-JSLib",
   "dependencies": {
+    "lodash": "^3.8.0",
     "webpack": "^1.7.3"
   },
   "devDependencies": {
+    "babel-core": "^5.2.17",
+    "babel-loader": "^5.0.0",
     "chai": "^2.3.0",
     "gulp": "^3.8.11",
-    "gulp-load-plugins": "^0.9.0",
+    "gulp-jscs": "^1.6.0",
+    "gulp-jscs-stylish": "^1.1.0",
     "gulp-webpack": "^1.3.1",
+    "istanbul-instrumenter-loader": "^0.1.3",
     "karma": "^0.12.31",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.10",
     "karma-coverage": "^0.3.1",
     "karma-mocha": "^0.1.10",
+    "karma-webpack": "^1.5.1",
     "mocha": "^2.2.4"
   }
 }

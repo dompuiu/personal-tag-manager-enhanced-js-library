@@ -1,0 +1,10 @@
+{
+  "requireSemicolons": true,
+  "maximumLineLength": 120,
+  "validateQuoteMarks": {
+      "mark": "'",
+      "escape": true
+  },
+  "validateLineBreaks": "LF",
+  "validateIndentation": 2
+}

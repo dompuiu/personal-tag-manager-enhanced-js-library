@@ -15,18 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/utils.js',
-      'test/unit/utils.js'
-      //'src/library/publish-subscribe.js',
-      //'src/library/injector.js',
-      //'src/library/containers/container.js',
-      //'src/library/tag-manager-loader.js',
-      //'src/library/tag-manager.js',
-      //'src/library/containers/script-container.js',
-      //'src/library/containers/synchronous-container.js',
-      //'src/library/containers/javascript-container.js',
-      //'src/library/containers/html-container.js',
-      //'test/**/*.js'
+      'test/**/*.js'
     ],
 
 
@@ -38,9 +27,23 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['coverage']
+      'test/**/*.js': ['webpack']
     },
 
+    webpack: {
+      cache: true,
+      module: {
+        loaders: [
+          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+        ],
+        postLoaders: [
+          { test: /\.js$/, exclude: /(test|node_modules)\//, loader: 'istanbul-instrumenter' }
+        ]
+      },
+      resolve: {
+        extensions: ['', '.js']
+      }
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -72,5 +75,7 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
+
+    captureTimeout: 120000
   });
 };
