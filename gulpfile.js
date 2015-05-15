@@ -44,6 +44,13 @@ gulp.task('test', function (done) {
   }, done);
 });
 
+gulp.task('coverage', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.coverage.conf.js',
+    singleRun: true
+  }, done);
+});
+
 gulp.task('watch', function() {
   gulp.watch(['./src/**/*', './test/**/*'], ['lint', 'test', 'webpack']);
 });

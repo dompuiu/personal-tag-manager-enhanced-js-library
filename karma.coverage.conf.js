@@ -42,6 +42,9 @@ module.exports = function(config) {
       module: {
         loaders: [
           { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+        ],
+        postLoaders: [
+          { test: /\.js$/, exclude: /(test|node_modules)\//, loader: 'istanbul-instrumenter' }
         ]
       },
       cache: false
