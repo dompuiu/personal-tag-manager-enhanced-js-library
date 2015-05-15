@@ -9,7 +9,7 @@ var Tag = require('./engine/tags/tag');
 var TagManager = function () {
     var scope = this;
 
-    this.loader = new PersonalTagManagerLoader(null, null, window);
+    this.loader = new PersonalTagManagerLoader();
 
     return {
         name: 'Personal Tag Manager',

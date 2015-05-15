@@ -192,7 +192,7 @@ class HtmlTag extends Tag {
    */
   appendNodesWithSeparateLoader(configs) {
     var PersonalTagManagerLoader = require('../personal-tag-manager-loader');
-    var local_loader = new PersonalTagManagerLoader(configs, true, window),
+    var local_loader = new PersonalTagManagerLoader(configs, true),
       scope = this;
 
     local_loader.subscribe('onload', function() {

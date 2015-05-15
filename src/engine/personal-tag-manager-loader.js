@@ -10,10 +10,9 @@ var PubSub = require('./publish-subscribe');
  *
  * @return void
  */
-var PersonalTagManagerLoader = function(container_configs, serializing_loading, gc) {
+var PersonalTagManagerLoader = function(container_configs, serializing_loading) {
   this.id = PersonalTagManagerLoader.loaders.push(this) - 1;
 
-  this.gc = gc;
   this.load_queue = [];
   this.onload_counter = 0;
   this.serializing_loading = serializing_loading;
@@ -186,13 +185,13 @@ PersonalTagManagerLoader.prototype = {
     // Trigger the `ondomcontentloaded` when it has happened.
     Utils.onDomReady(function() {
       scope.messaging_queue.publish('ondomcontentloaded');
-    }, this.gc);
+    }, window);
 
     // Trigger the `onload` event.
-    if (this.gc.addEventListener) {
-      this.gc.addEventListener('load', onloadcallback, false);
+    if (window.addEventListener) {
+      window.addEventListener('load', onloadcallback, false);
     } else {
-      this.gc.attachEvent('onload', onloadcallback);
+      window.attachEvent('onload', onloadcallback);
     }
 
     return true;
