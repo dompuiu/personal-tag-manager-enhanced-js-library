@@ -1,6 +1,6 @@
 var PersonalTagManagerLoader = require('./../../src/engine/personal-tag-manager-loader');
 
-describe('TagManagerLoader', function() {
+describe('PersonalTagManagerLoader', function() {
   var load_next_container_spy, loader;
 
   before(function() {

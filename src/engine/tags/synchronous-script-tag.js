@@ -1,4 +1,6 @@
+var Tag = require('./tag');
 var ScriptTag = require('./script-tag');
+var Utils = require('./../utils');
 
 /**
  * Script container class that is loaded in a synchronous way.
