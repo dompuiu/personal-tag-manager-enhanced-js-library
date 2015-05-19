@@ -4,6 +4,7 @@ var webpack = require('gulp-webpack');
 var jscs = require('gulp-jscs');
 var stylish = require('gulp-jscs-stylish');
 var karma = require('karma').server;
+var uglify = require('gulp-uglify');
 
 var noop = function () {};
 var baseDir = './src';
@@ -15,7 +16,7 @@ gulp.task('lint', function () {
       .pipe(stylish());
 });
 
-gulp.task('webpack', function() {
+gulp.task('build', function() {
   return gulp.src('./src/bootstrap.js')
     .pipe(
       webpack({
@@ -37,6 +38,29 @@ gulp.task('webpack', function() {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('compress', function() {
+  return gulp.src('./src/bootstrap.js')
+    .pipe(
+      webpack({
+        output: {
+          filename: 'engine-min.js',
+          library: 'ptm'
+        },
+        devtool: '#inline-source-map',
+        resolve: {
+          extensions: ['', '.js']
+        },
+        module: {
+          loaders: [
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+          ]
+        }
+      })
+    )
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
@@ -52,7 +76,7 @@ gulp.task('coverage', function (done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./src/**/*', './test/**/*'], ['lint', 'test', 'webpack']);
+  gulp.watch(['./src/**/*', './test/**/*'], ['lint', 'test', 'build']);
 });
 
 gulp.task('default', ['watch']);
