@@ -8,36 +8,36 @@ class TagFactory {
   /**
    * Tag factory method.
    *
-   * @param object           Loader config options.
-   * @param TagManagerLoader The loader instance that has instantiated the container.
+   * @param object    Loader config options.
+   * @param TagLoader The loader instance that has instantiated the tag.
    *
-   * @return container
+   * @return tag
    */
   static create(data, loader_instance) {
-    var container;
+    var tag;
 
     switch (data.type) {
       case 'block-script':
-        container = new SynchronousScriptTag(data, loader_instance);
+        tag = new SynchronousScriptTag(data, loader_instance);
       break;
 
       case 'script':
-        container = new ScriptTag(data, loader_instance);
+        tag = new ScriptTag(data, loader_instance);
       break;
 
       case 'js':
-        container = new JavaScriptTag(data, loader_instance);
+        tag = new JavaScriptTag(data, loader_instance);
       break;
 
       case 'html':
-        container = new HtmlTag(data, loader_instance);
+        tag = new HtmlTag(data, loader_instance);
       break;
       default:
-        container = new Tag(data, loader_instance);
+        tag = new Tag(data, loader_instance);
     }
 
-    Tag.containers.push(container);
-    return container;
+    Tag.tags.push(tag);
+    return tag;
   }
 }
 

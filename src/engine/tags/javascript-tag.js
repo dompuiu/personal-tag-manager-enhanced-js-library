@@ -3,12 +3,12 @@ var Tag = require('./tag');
 var ScriptTag = require('./script-tag');
 
 /**
- * JavaScript container class.
+ * JavaScript tag class.
  *
  * This is the class that will generate all the inline script tags.
  *
- * @param string           The container data.
- * @param TagManagerLoader The loader instance that has instantiated the container.
+ * @param string           The tag data.
+ * @param TagLoader The loader instance that has instantiated the tag.
  *
  * @return void
  */

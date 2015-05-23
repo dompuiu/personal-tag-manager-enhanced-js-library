@@ -70,20 +70,20 @@ describe('Tag', function() {
   });
 
   describe('#getById()', function() {
-    it('should return null when no container is found for the recieved id', function() {
+    it('should return null when no tag is found for the recieved id', function() {
       expect(Tag.getById('myid')).to.be.null;
     });
 
-    it('should return a container based on the received id', function() {
-      var container = {
+    it('should return a tag based on the received id', function() {
+      var tag = {
         data: {
           id: 'myid'
         }
       };
 
-      Tag.containers = [container];
+      Tag.tags = [tag];
 
-      expect(Tag.getById('myid')).to.be.deep.equal(container);
+      expect(Tag.getById('myid')).to.be.deep.equal(tag);
     });
   });
 });

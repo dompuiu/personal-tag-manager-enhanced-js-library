@@ -5,11 +5,11 @@ var ScriptTag = require('./script-tag');
  * Html tag class.
  *
  * This class parse the HTML code it receives. It splits the HTML in chunks.
- * When finds a script tag, it inserts it using a JavaScriptContainer object.
+ * When finds a script tag, it inserts it using a JavaScriptTag object.
  * All other nodes are appended as they are found directly to the page.
  *
- * @param string           The container data.
- * @param TagManagerLoader The loader instance that has instantiated the container.
+ * @param string           The tag data.
+ * @param TagLoader The loader instance that has instantiated the tag.
  *
  * @return void
  */
@@ -147,7 +147,7 @@ class HtmlTag extends Tag {
    *
    * @param DocumentFragment The fragment from which the HTML will be extracted.
    *
-   * @return Object Container config object.
+   * @return Object Tag config object.
    */
   getHtmlConfigFromChunk(node) {
     var src = node.innerHTML;
@@ -164,7 +164,7 @@ class HtmlTag extends Tag {
    *
    * @param DocumentFragment The fragment from which the config will be extracted.
    *
-   * @return Object Container config object.
+   * @return Object Tag config object.
    */
   getScriptConfigFromChunk(node) {
     if (node.src !== '') {
@@ -184,15 +184,15 @@ class HtmlTag extends Tag {
 
 
   /**
-   * Add nodes to the page with a separate instance of TagManagerLoader.
+   * Add nodes to the page with a separate instance of TagLoader.
    *
-   * @param array Container configs.
+   * @param array Tag configs.
    *
    * @return void
    */
   appendNodesWithSeparateLoader(configs) {
-    var PersonalTagManagerLoader = require('../personal-tag-manager-loader');
-    var local_loader = new PersonalTagManagerLoader(configs, true),
+    var TagLoader = require('../tag-loader');
+    var local_loader = new TagLoader(configs, true),
       scope = this;
 
     local_loader.subscribe('onload', function() {
@@ -205,7 +205,7 @@ class HtmlTag extends Tag {
     });
 
     this.loader_instance.pause();
-    local_loader.loadNextContainer();
+    local_loader.loadNext();
   }
 }
 

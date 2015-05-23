@@ -1,4 +1,4 @@
-var PersonalTagManagerLoader = require('./engine/personal-tag-manager-loader');
+var TagLoader = require('./engine/tag-loader');
 var Utils = require('./engine/utils');
 var Tag = require('./engine/tags/tag');
 
@@ -6,17 +6,17 @@ var Tag = require('./engine/tags/tag');
  * This is the cvasi-public interface of TagManager. Every method from this
  * object could be called from the `call` method from the outro.js file.
  */
-var TagManager = function () {
+var PersonalTagManager = function () {
     var scope = this;
 
-    this.loader = new PersonalTagManagerLoader();
+    this.loader = new TagLoader();
 
     return {
         name: 'Personal Tag Manager',
         version: '1.0',
 
         /**
-         * Shorcut for public methods of the TagManager instance.
+         * Shorcut for public methods of the PersonalTagManager instance.
          *
          * @return void
          */
@@ -50,12 +50,12 @@ var TagManager = function () {
 };
 
 
-TagManager.prototype = {
+PersonalTagManager.prototype = {
 
     /**
      * The config queue.
      *
-     * @var TagManagerLoader
+     * @var TagLoader
      */
     loader: null,
 
@@ -93,20 +93,20 @@ TagManager.prototype = {
 
 
     /**
-     * Returns a container based on the provided id.
+     * Returns a tag based on the provided id.
      *
-     * @param array Container configs that should be inserted by the loader.
+     * @param array tag configs that should be inserted by the loader.
      *
      * @return void
      */
-    load: function (container_configs) {
-        this.loader.addToQueue(container_configs);
-        this.loader.loadNextContainer();
+    load: function (tag_configs) {
+        this.loader.addToQueue(tag_configs);
+        this.loader.loadNext();
     },
 
 
     /**
-     * Init the current ATM library. It will load the containers from the inside JSON.
+     * Init the current ATM library. It will load the tags from the inside JSON.
      *
      * @return void
      */
@@ -116,9 +116,9 @@ TagManager.prototype = {
 
 
     /**
-     * Returns a container based on the provided id.
+     * Returns a tag based on the provided id.
      *
-     * @param string The id of the container that should be returned.
+     * @param string The id of the tag that should be returned.
      *
      * @return Object
      */
@@ -130,9 +130,9 @@ TagManager.prototype = {
      *
      * @param string The id of the loader that should be returned.
      *
-     * @return TagManagerLoader
+     * @return TagLoader
      */
-    getLoaderById: Utils.call(PersonalTagManagerLoader.getById, PersonalTagManagerLoader)
+    getLoaderById: Utils.call(TagLoader.getById, TagLoader)
 };
 
-module.exports = new TagManager();
+module.exports = new PersonalTagManager();

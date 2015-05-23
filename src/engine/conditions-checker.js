@@ -6,7 +6,7 @@ class ConditionsChecker {
   }
 
   /**
-   * Check the `match` conditions for this container.
+   * Check the `match` conditions for this tag.
    *
    * @return Boolean
    */
@@ -41,7 +41,7 @@ class ConditionsChecker {
 
 
   /**
-   * Check the `date` conditions for this container.
+   * Check the `date` conditions for this tag.
    *
    * @param object The match object from data.
    *
@@ -186,7 +186,7 @@ class ConditionsChecker {
 
 
   /**
-   * Check the `cookie` conditions for this container.
+   * Check the `cookie` conditions for this tag.
    *
    * @param object The match object from data.
    *

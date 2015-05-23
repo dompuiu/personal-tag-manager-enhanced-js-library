@@ -2,13 +2,13 @@ var Tag = require('./tag');
 var Utils = require('../utils');
 
 /**
- * Script container class.
+ * Script tag class.
  *
  * This is the class that will generate all the script tags that have
  * the `src` attribute.
  *
- * @param string           The container data.
- * @param TagManagerLoader The loader instance that has instantiated the container.
+ * @param string           The tag data.
+ * @param TagLoader The loader instance that has instantiated the tag.
  *
  * @return void
  */
@@ -99,7 +99,7 @@ getDomNode() {
 
 
   /**
-   * Returns function that will be called when the container has been loaded
+   * Returns function that will be called when the tag has been loaded
    * by the browser.
    *
    * @param HTMLElement The node where this callback will be appended.

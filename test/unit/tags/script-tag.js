@@ -8,7 +8,7 @@ describe('ScriptTag', function() {
       expect(cnt.data.attributes.defer).to.be.true;
     });
 
-    it('should have defer attribute set to true when provided in container', function() {
+    it('should have defer attribute set to true when provided in tag', function() {
       var cnt = new ScriptTag({
         attributes: {
           defer: true

@@ -3,13 +3,13 @@ var ScriptTag = require('./script-tag');
 var Utils = require('./../utils');
 
 /**
- * Script container class that is loaded in a synchronous way.
+ * Script tag class that is loaded in a synchronous way.
  *
  * This is the class that will generate script tags that will be appended to the
  * page using the document.write method.
  *
- * @param string           The container data.
- * @param TagManagerLoader The loader instance that has instantiated the container.
+ * @param string           The tag data.
+ * @param TagLoader The loader instance that has instantiated the tag.
  *
  * @return void
  */
@@ -82,7 +82,7 @@ class SynchronousScriptTag extends ScriptTag {
 
   /**
    * Returns function that will be called only on older IE versions when the
-   * container has been loaded by the browser.
+   * tag has been loaded by the browser.
    *
    * @return string
    */

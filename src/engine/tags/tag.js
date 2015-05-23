@@ -11,10 +11,10 @@ var last_uid = -1;
 
 class Tag {
   /**
-   * Base class for all loader containers.
+   * Base class for all loader tags.
    *
    * @param object           Loader config options.
-   * @param TagManagerLoader The loader instance that has instantiated the container.
+   * @param TagLoader The loader instance that has instantiated the tag.
    *
    * @return void
    */
@@ -45,21 +45,21 @@ class Tag {
   }
 
   /**
-   * Getting a container by its id.
+   * Getting a tag by its id.
    *
-   * @param string The id of the container that should be returned.
+   * @param string The id of the tag that should be returned.
    *
    * @return Tag
    */
   static getById(id) {
     var i, l;
-    for (i = 0, l = Tag.containers.length; i < l; i += 1) {
-      if (typeof Tag.containers[i].data === 'undefined') {
+    for (i = 0, l = Tag.tags.length; i < l; i += 1) {
+      if (typeof Tag.tags[i].data === 'undefined') {
         continue;
       }
 
-      if (Tag.containers[i].data.id === id) {
-        return Tag.containers[i];
+      if (Tag.tags[i].data.id === id) {
+        return Tag.tags[i];
       }
     }
 
@@ -67,7 +67,7 @@ class Tag {
   }
 
   /**
-   *  Getting container's DOM node and sending it to the HtmlInjector.
+   *  Getting tag's DOM node and sending it to the HtmlInjector.
    *
    * @return Boolean
    */
@@ -110,7 +110,7 @@ class Tag {
 
 
   /**
-   *  Getting the DOM node for this container.
+   *  Getting the DOM node for this tag.
    *
    * @return Boolean
    */
@@ -120,7 +120,7 @@ class Tag {
 
 
   /**
-   * Subscribe on the `ontagload` event of this container.
+   * Subscribe on the `ontagload` event of this tag.
    *
    * @return void
    */
@@ -155,7 +155,7 @@ class Tag {
     var unique = false,
       counter = 0,
       id,
-      container;
+      tag;
 
     if (!data || !data.id) {
       return 'tm_' + String(++last_uid);
@@ -168,10 +168,10 @@ class Tag {
         id = data.id + '_' + counter;
       }
 
-      container = Tag.getById(id);
+      tag = Tag.getById(id);
       counter += 1;
 
-      if (container === null) {
+      if (tag === null) {
         unique = true;
       }
     }
@@ -181,7 +181,7 @@ class Tag {
 
 
   /**
-   * Returns function that will be called when the container has been loaded
+   * Returns function that will be called when the tag has been loaded
    * by the browser.
    *
    * @return String
@@ -210,11 +210,11 @@ class Tag {
 };
 
 /**
- * List of all containers initialized. Used by the getById method.
+ * List of all tags initialized. Used by the getById method.
  *
  * @var Array
  */
-Tag.containers = [];
+Tag.tags = [];
 
 /**
  * List of all possible config properties.

@@ -1,11 +1,11 @@
-var PersonalTagManagerLoader = require('./../../src/engine/personal-tag-manager-loader');
+var TagLoader = require('./../../src/engine/tag-loader');
 
-describe('PersonalTagManagerLoader', function() {
+describe('TagLoader', function() {
   var load_next_container_spy, loader;
 
   before(function() {
-    loader = new PersonalTagManagerLoader(null, null, window);
-    load_next_container_spy = sinon.spy(loader, "loadNextContainer");
+    loader = new TagLoader(null, null, window);
+    load_next_container_spy = sinon.spy(loader, "loadNext");
   });
 
 
@@ -14,10 +14,10 @@ describe('PersonalTagManagerLoader', function() {
     loader.reset();
   });
 
-  describe('#loadNextContainer()', function() {
+  describe('#loadNext()', function() {
     it('should not load any container if array is not provided as parameter', function() {
       loader.addToQueue('some string');
-      loader.loadNextContainer();
+      loader.loadNext();
 
       expect(load_next_container_spy.calledOnce).to.be.ok;
     });
@@ -25,7 +25,7 @@ describe('PersonalTagManagerLoader', function() {
     it('should load all containers if array is provided as parameter', function() {
       var containers = [0, 1];
       loader.addToQueue(containers);
-      loader.loadNextContainer();
+      loader.loadNext();
 
       expect(load_next_container_spy.calledThrice).to.be.ok;
     });

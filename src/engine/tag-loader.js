@@ -3,31 +3,31 @@ var Utils = require('./utils');
 var PubSub = require('./publish-subscribe');
 
 /**
- * This is the entry point in TagManagerLoader. Provide a config object that
- * is parsed and the resulting container will be appended to the page.
+ * This is the entry point in TagLoader. Provide a config object that
+ * is parsed and the resulting tag will be appended to the page.
  *
- * @param array The containers config objects.
+ * @param array The tags config objects.
  *
  * @return void
  */
-var PersonalTagManagerLoader = function(container_configs, serializing_loading) {
-  this.id = PersonalTagManagerLoader.loaders.push(this) - 1;
+var PersonalTagLoader = function(tag_configs, serializing_loading) {
+  this.id = PersonalTagLoader.loaders.push(this) - 1;
 
   this.load_queue = [];
   this.onload_counter = 0;
   this.serializing_loading = serializing_loading;
 
   this.setupEvents();
-  this.addToQueue(container_configs);
+  this.addToQueue(tag_configs);
 };
 
 
 /**
- * List of all containers initialized. Used by the getById method.
+ * List of all tags initialized. Used by the getById method.
  *
  * @var Array
  */
-PersonalTagManagerLoader.loaders = [];
+PersonalTagLoader.loaders = [];
 
 
 /**
@@ -35,9 +35,9 @@ PersonalTagManagerLoader.loaders = [];
  *
  * @param string The id of the loader that should be returned.
  *
- * @return TagManagerLoader
+ * @return TagLoader
  */
-PersonalTagManagerLoader.getById = function(id) {
+PersonalTagLoader.getById = function(id) {
   if (id >= this.loaders.length) {
     return null;
   }
@@ -46,7 +46,7 @@ PersonalTagManagerLoader.getById = function(id) {
 };
 
 
-PersonalTagManagerLoader.prototype = {
+PersonalTagLoader.prototype = {
 
   /**
    * Loader internal id.
@@ -85,7 +85,7 @@ PersonalTagManagerLoader.prototype = {
   onload_counter: 0,
 
   /**
-   * Flag that will block the loading of next containers until while is set to true.
+   * Flag that will block the loading of next tags until while is set to true.
    *
    * @var Boolean
    */
@@ -101,11 +101,11 @@ PersonalTagManagerLoader.prototype = {
    *
    * @return boolean
    */
-  addToQueue: function(container_configs, prepend) {
+  addToQueue: function(tag_configs, prepend) {
     var i;
 
-    if (Utils.isArray(container_configs) === false ||
-      container_configs.length === 0
+    if (Utils.isArray(tag_configs) === false ||
+      tag_configs.length === 0
     ) {
       return false;
     }
@@ -115,28 +115,28 @@ PersonalTagManagerLoader.prototype = {
     }
 
     if (prepend === true) {
-      for (i = container_configs.length - 1; i >= 0; i -= 1) {
-        this.load_queue.unshift(container_configs[i]);
+      for (i = tag_configs.length - 1; i >= 0; i -= 1) {
+        this.load_queue.unshift(tag_configs[i]);
       }
     } else {
-      for (i = 0; i < container_configs.length; i += 1) {
-        this.load_queue.push(container_configs[i]);
+      for (i = 0; i < tag_configs.length; i += 1) {
+        this.load_queue.push(tag_configs[i]);
       }
     }
 
-    this.onload_counter += container_configs.length;
+    this.onload_counter += tag_configs.length;
 
     return true;
   },
 
 
   /**
-   * Loading the next container in queue.
+   * Loading the next tag in queue.
    *
    * @return void
    */
-  loadNextContainer: function() {
-    var container, container_config;
+  loadNext: function() {
+    var tag, tag_config;
     if (Utils.isArray(this.load_queue) === false ||
       this.load_queue.length === 0 ||
       this.pause_state === true
@@ -144,15 +144,15 @@ PersonalTagManagerLoader.prototype = {
       return;
     }
 
-    container_config = this.load_queue.shift();
-    container = TagFactory.create(container_config, this);
+    tag_config = this.load_queue.shift();
+    tag = TagFactory.create(tag_config, this);
 
-    container.append();
+    tag.append();
   },
 
 
   /**
-   * Setup the events that will be listen by TagManagerLoader.
+   * Setup the events that will be listen by TagLoader.
    *
    * @return boolean
    */
@@ -219,7 +219,7 @@ PersonalTagManagerLoader.prototype = {
    * @return void
    */
   onLoadNextTag: function() {
-    this.loadNextContainer();
+    this.loadNext();
   },
 
 
@@ -239,7 +239,7 @@ PersonalTagManagerLoader.prototype = {
 
 
   /**
-   * Pause page container appending process.
+   * Pause page tag appending process.
    *
    * @return void
    */
@@ -249,13 +249,13 @@ PersonalTagManagerLoader.prototype = {
 
 
   /**
-   * Resume page container appending process.
+   * Resume page tag appending process.
    *
    * @return void
    */
   resume: function() {
     this.pause_state = false;
-    this.loadNextContainer();
+    this.loadNext();
   },
 
 
@@ -302,4 +302,4 @@ PersonalTagManagerLoader.prototype = {
 
 };
 
-module.exports = PersonalTagManagerLoader;
+module.exports = PersonalTagLoader;
