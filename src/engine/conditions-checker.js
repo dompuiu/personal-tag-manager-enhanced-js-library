@@ -1,8 +1,9 @@
 var Utils = require('./utils');
 
 class ConditionsChecker {
-  constructor(match_data) {
+  constructor(match_data, window_obj = window) {
     this.match_data = match_data;
+    this.window_obj = window_obj
   }
 
   /**
@@ -132,7 +133,10 @@ class ConditionsChecker {
    * @return Boolean
    */
   checkPath(match_condition) {
-    return this.checkUrlPart(match_condition, window.location.pathname);
+    return this.checkUrlPart(
+      match_condition,
+      this.window_obj.location.pathname
+    );
   }
 
 
@@ -144,7 +148,10 @@ class ConditionsChecker {
    * @return Boolean
    */
   checkHost(match_condition) {
-    return this.checkUrlPart(match_condition, window.location.hostname);
+    return this.checkUrlPart(
+      match_condition,
+      this.window_obj.location.hostname
+    );
   }
 
 
@@ -193,7 +200,7 @@ class ConditionsChecker {
    * @return Boolean
    */
   checkCookie(match_condition) {
-    var cookie_obj = this.getRawValues(window.document.cookie, ';', false);
+    var cookie_obj = this.getRawValues(this.window_obj.document.cookie, ';', false);
 
     return this.checkValueFromObject(match_condition, cookie_obj);
   }
@@ -295,13 +302,13 @@ class ConditionsChecker {
    * @return Object
    */
   getQueryValues() {
-    var search = window.location.search;
+    var search = this.window_obj.location.search;
 
     if (search.length <= 1) {
       return {};
     }
 
-    search = location.search.substr(1);
+    search = this.window_obj.location.search.substr(1);
     return this.getRawValues(search, '&', true);
   }
 
