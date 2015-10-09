@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var path = require('path');
-var webpack = require('gulp-webpack');
+var webpack = require('webpack-stream');
 var jscs = require('gulp-jscs');
 var stylish = require('gulp-jscs-stylish');
 var karma = require('karma').server;
